@@ -103,3 +103,22 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+
+\.idea/\.name
+
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+/cmake-build-*/
+
+build
+recordings
+oni
+evaluation
+*~
+*.swp
+*.oni
+*.pcd
+*.txt.user*
+.idea/*
+cmake-*
+
