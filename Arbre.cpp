@@ -5,12 +5,17 @@
 #include <cstdio>
 #include <iostream>
 #include "Arbre.h"
+#include "Noeud.h"
+#include "NoeudConstante.h"
 
- int Arbre::lireExpression(std::string expression,int index) {
+int Arbre::lireExpression(std::string expression,int index) {
 
     int i = 0;
-    if(index == 0){
-        for(i=0;expression[i];i++){
+    int previous = 88;
+    Noeud *root = NULL;
+    Noeud *current;
+        for(i=expression.back();i>0;i--){
+
 
             // printf("%c",expression[i]);
             if(expression[i]=='('){
@@ -19,23 +24,28 @@
             }
             else if(expression[i]==')'){
                // printf("parenthese fermante ");
+                previous = 0;
             }
             else if((expression[i]=='*')||(expression[i]=='+')||(expression[i]=='-')||(expression[i]=='/')){
                 //printf("operateur ");
-                if(expression[i-1]==')'){
-                    printf("main operator");
-                    printf("%c",expression[i]);
-                }
-                else if(expression[i-1]==' '){
-                    if(expression[i-2]==')'){
-                        printf("main operator");
-                        printf("%c",expression[i]);
+                if(previous == 1 ){
+                    if(root == NULL){
+                        root = new NoeudOperateur();
+                        root->setValue(std::to_string(expression[i]));
                     }
-
                 }
+
             }
             else if(isdigit(expression[i])){
                // printf("nombre ");
+                if(previous == 0){
+
+                    current = new NoeudConstante();
+                    current->setValue(std::to_string(expression[i]));
+                    previous = 1 ;
+                }
+
+
             }
             else if(expression[i]==' '){
               //  printf("space ");
@@ -45,7 +55,8 @@
             }
 
         }
-    }
+
+
 
 
 

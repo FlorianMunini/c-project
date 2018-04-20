@@ -9,19 +9,11 @@
 #include "NoeudOperateur.h"
 class NoeudOperateur;
 class NoeudConstante: public Noeud {
-protected: int number;
-protected: NoeudOperateur* operateurs;
+
 public:
     NoeudConstante();
 
-public:
-    int getNumber() const;
 
-    void setNumber(int number);
-
-    NoeudOperateur *getOperateurs() const;
-
-    void setOperateurs(NoeudOperateur *operateurs);
 
 };
 
