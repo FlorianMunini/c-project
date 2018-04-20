@@ -120,5 +120,5 @@ evaluation
 *.pcd
 *.txt.user*
 .idea/*
-cmake-*
+*cmake*
 
