@@ -121,4 +121,12 @@ evaluation
 *.txt.user*
 .idea/*
 *cmake*
+ *.cmake
+ CPackConfig.cmake
+ CPackSourceConfig.cmake
+ cmake_install.cmake
+ CTestTestfile.cmake
+ CMakeCache.txt
+ Makefile.defs
+ CMakeFiles/
 
