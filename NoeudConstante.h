@@ -7,6 +7,7 @@
 
 
 #include "NoeudOperateur.h"
+#include "Noeud.h"
 class NoeudOperateur;
 class NoeudConstante: public Noeud {
 
