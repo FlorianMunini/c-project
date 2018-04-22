@@ -10,20 +10,16 @@
 
 class Noeud {
 
-protected:std::string value;
-protected:int type;
+
+
 protected:Noeud *parent;
 protected:Noeud *filsDroit;
 protected:Noeud *filsGauche;
+protected: std::string value;
+protected: int type ;
 
 public:
-    const std::string &getValue() const;
-
-    void setValue(const std::string &value);
-
-    int getType() const;
-
-    void setType(int type);
+    Noeud();
 
     Noeud *getParent() const;
 
@@ -37,7 +33,13 @@ public:
 
     void setFilsGauche(Noeud *filsGauche);
 
-    Noeud();
+    const std::string &getValue() const;
+
+    void setValue(const std::string &value);
+
+    int getType() const;
+
+    void setType(int type);
 
 };
 
