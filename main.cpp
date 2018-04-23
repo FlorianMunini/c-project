@@ -11,6 +11,7 @@ Noeud * createTree (string expression) {
     stack<Noeud *> st,dump;
     Noeud *Pere, *FilsGauche, *FilsDroit;
 
+
     while(expression.compare("lol")!=0){
 
         std::cin >> expression;
@@ -38,11 +39,30 @@ Noeud * createTree (string expression) {
             Pere->setType(0);
             st.push(Pere);
 
-            // Pop two top nodes
-            FilsDroit = st.top(); // Store top
-            st.pop();      // Remove top
-            FilsGauche = st.top();
-            st.pop();
+           // Pop two top nodes
+            if(!st.empty()){
+
+                FilsDroit = st.top(); // Store top
+                st.pop();
+
+                         // Remove top
+                    if(!st.empty()){
+                        FilsGauche = st.top();
+                        st.pop();
+                    }
+                    else{
+                        FilsGauche = NULL;
+                    }
+
+
+
+            }
+        else{
+            FilsDroit = NULL;
+            FilsGauche = NULL;
+        }
+
+
 
             //  make them children
             Pere->setFilsDroit(FilsDroit);
