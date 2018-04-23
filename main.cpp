@@ -16,23 +16,27 @@ Noeud * createTree (string expression) {
         std::cin >> expression;
 
         if ((expression[0] == '*') || (expression[0] == '+') || (expression[0] == '-') || (expression[0] == '/')) {
-            std::cout << "c'est un operateur : " << expression[0] << std::endl;
+            std::cout << "c'est un operateur : " << expression[0];
+            std::cout << std::endl;
             Pere = new Noeud();
             Pere->setValue(expression);
             Pere->setType(1);
             st.push(Pere);
         } else if (isalpha(expression[0])) {
-            std::cout << "c'est une lettre : " << expression[0]<< std::endl;
+            std::cout << "c'est une lettre : " << expression[0];
+            std::cout << std::endl;
         } else {
             i = 0;
             while (expression[i] != '\0') {
                 if (!isdigit(expression[i])) {
-                    std::cout << "error retaper\n";
+                    std::cout << "error retaper";
+                    std::cout << std::endl;
                     std::cin >> expression;
                 }
                 i++;
             }
-            cout << "c'est un chiffre" << expression << std::endl;
+            cout << "c'est un chiffre" << expression;
+            std::cout << std::endl;
             Pere = new Noeud();
             Pere->setValue(expression);
             Pere->setType(0);
@@ -56,11 +60,13 @@ Noeud * createTree (string expression) {
     for(dump = st;!dump.empty(); dump.pop()){
 
         if(dump.top()->getType() == 0){
-            cout << "ce stack est un nombre" << std::endl;
+            cout << "ce stack est un nombre";
+            std::cout << std::endl;
             cout << dump.top()->getValue();
         }
         else{
-            cout << "ce stack est un opérateur" << std::endl;
+            cout << "ce stack est un opérateur";
+            std::cout << std::endl;
             cout << dump.top()->getValue();
         }
     }
