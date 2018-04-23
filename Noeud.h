@@ -16,7 +16,7 @@ protected:Noeud *parent;
 protected:Noeud *filsDroit;
 protected:Noeud *filsGauche;
 protected: std::string value;
-protected: int type ;
+protected: int type;
 
 public:
     Noeud();

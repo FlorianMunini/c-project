@@ -4,34 +4,25 @@
 
 #include<bits/stdc++.h>
 using namespace std;
-int main() {
 
-    cout << "Hello, World!" << std::endl;
 
-    std::string expression;
-
+Noeud * createTree (string expression) {
     int i;
     stack<Noeud *> st,dump;
-
+    Noeud *Pere, *FilsGauche, *FilsDroit;
 
     while(expression.compare("lol")!=0){
-
-
-
-
-
-
 
         std::cin >> expression;
 
         if ((expression[0] == '*') || (expression[0] == '+') || (expression[0] == '-') || (expression[0] == '/')) {
-            std::cout << "c'est un operateur : " << expression[0] << "\n";
-            Noeud* no = new Noeud();
-            no->setValue(expression);
-            no->setType(1);
-            st.push(no);
+            std::cout << "c'est un operateur : " << expression[0] << std::endl;
+            Pere = new Noeud();
+            Pere->setValue(expression);
+            Pere->setType(1);
+            st.push(Pere);
         } else if (isalpha(expression[0])) {
-            std::cout << "c'est une lettre : " << expression[0]<< "\n";
+            std::cout << "c'est une lettre : " << expression[0]<< std::endl;
         } else {
             i = 0;
             while (expression[i] != '\0') {
@@ -41,42 +32,51 @@ int main() {
                 }
                 i++;
             }
-            std::cout << "c'est un chiffre" << expression << "\n";
-            Noeud* no = new Noeud();
-            no->setValue(expression);
-            no->setType(0);
+            cout << "c'est un chiffre" << expression << std::endl;
+            Pere = new Noeud();
+            Pere->setValue(expression);
+            Pere->setType(0);
+            st.push(Pere);
 
+            // Pop two top nodes
+            FilsDroit = st.top(); // Store top
+            st.pop();      // Remove top
+            FilsGauche = st.top();
+            st.pop();
 
+            //  make them children
+            Pere->setFilsDroit(FilsDroit);
+            Pere->setFilsGauche(FilsGauche);
 
-            st.push(no);
+            // Add this subexpression to stack
+            st.push(Pere);
         }
-
-
-
-
     }
-
     // boucle for pour afficcher ce que contient le stack
     for(dump = st;!dump.empty(); dump.pop()){
 
         if(dump.top()->getType() == 0){
-            printf("ce stack est un nombre\n");
+            cout << "ce stack est un nombre" << std::endl;
             cout << dump.top()->getValue();
         }
         else{
-            printf("ce stack est un opérateur\n");
+            cout << "ce stack est un opérateur" << std::endl;
             cout << dump.top()->getValue();
         }
-
-
-
-
     }
+    Pere=st.top();
+    st.pop();
+    return Pere;
+}
 
 
+int main() {
 
+    cout << "Entrez votre expression en écriture polonaise inversé" << std::endl;
 
-
+    std::string expression;
+    expression = "ab+ef*g*-";
+    Noeud* n = createTree(expression);
 
     return 0;
 }
