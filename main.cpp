@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Noeud.h"
+#include <fstream>
 
 #include<bits/stdc++.h>
 using namespace std;
@@ -41,6 +42,7 @@ Noeud * createTree () {
     float opGauche;
     float opDroite;
     string expression;
+    ofstream myfile ("../logArbre.txt");
     int previous = -88;
 
     while(expression.compare("lol")!=0){
@@ -58,6 +60,8 @@ Noeud * createTree () {
                 Pere = new Noeud();
                 Pere->setValue(expression);
                 Pere->setType(1);
+
+
                 if(!st.empty()){
 
                     FilsDroit = st.top(); // Store top
@@ -71,6 +75,14 @@ Noeud * createTree () {
                 Pere->setFilsDroit(FilsDroit);
                 Pere->setFilsGauche(FilsGauche);
 
+                if (myfile.is_open())
+                {
+                    myfile << "Fils Droit : " << FilsDroit->getValue() << "\n";
+                    myfile << "Fils Gauche : " << FilsGauche->getValue() << "\n";
+
+
+                }
+                else cout << "Unable to open file";
 
                 // Add this subexpression to stack
                 st.push(Pere);
@@ -80,7 +92,6 @@ Noeud * createTree () {
                 Pere = new Noeud();
                 Pere->setValue(expression);
                 Pere->setType(1);
-
 
 
                 // Pop two top nodes
@@ -104,49 +115,22 @@ Noeud * createTree () {
                     Gauche=FilsGauche->getValue();
                     cout << "Gauche: " << Gauche << " Droite: " << Droite << endl;
 
-                    /*
-                    Droite=FilsDroit->getValue();
-                    cout << "Gauche: " << Gauche << " Droite: " << Droite << endl;
-                    opGauche = std::stof(Gauche);
-                    cout << "opGauche: " << opGauche << endl;
-                    opDroite = std::stof(Droite);
-                    cout << " opDroite: " << opDroite << endl;
-                    if (Pere->getValue().compare("/") == 0) {
-                        cout << "Vous utilisez l'operateur diviser " ;
-                        cout << endl;
-                        if (opDroite!=0) {
 
-                            cout << opGauche << "/" << opDroite << "=" << opGauche / opDroite << endl;
-
-                        } else {
-                            cout << "Division par 0 interdite!!";
-
-                        }
-                    }
-                    }
-                    if (Pere->getValue().compare("+") == 0) {
-                        cout << "Vous utilisez l'operateur additionner";
-                        cout << endl;
-                        cout << opGauche << "+" << opDroite << "=" << opGauche + opDroite << endl;
-                    }
-
-                    if (Pere->getValue().compare("-") == 0) {
-                        cout << "Vous utilisez l'operateur soustraire";
-                        cout << endl;
-                        cout << opGauche << "-" << opDroite << "=" << opGauche - opDroite << endl;
-
-                    if (Pere->getValue().compare("*") == 0) {
-                        cout << "Vous utilisez l'operateur multiplier";
-                        cout << endl;
-                        cout << opGauche << "*" << opDroite << "=" << opGauche * opDroite << endl;
-
-                    }
-                    */
                 }
                 //  make them children
                 Pere->setFilsDroit(FilsDroit);
                 Pere->setFilsGauche(FilsGauche);
 
+                if (myfile.is_open())
+                {
+                    myfile << "Pere : " << Pere->getValue() << "\n";
+                    myfile << "Fils Gauche : " << FilsGauche->getValue() << "\n";
+                    myfile << "Fils Droit : " << FilsDroit->getValue() << "\n";
+
+
+
+                }
+                else cout << "Unable to open file";
 
                 // Add this subexpression to stack
                 st.push(Pere);
@@ -197,6 +181,9 @@ Noeud * createTree () {
             Pere->setType(0);
             st.push(Pere);
 
+
+
+
         } else{
             cout << "error retaper";
             cout << endl;
@@ -208,6 +195,7 @@ Noeud * createTree () {
 
 
     }
+    myfile.close();
     // boucle for pour afficcher ce que contient le stack
     for(dump = st;!dump.empty(); dump.pop()){
 
