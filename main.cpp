@@ -41,16 +41,15 @@ ostringstream ParcoursInfixe (Noeud * Courant) {
 
 
 
-
 /*
- * if (Courant->getType() == 0) {
+ if (Courant->getType() == 0) {
             T = new Terme();
             T->setValue(Courant->getValue());
             T->setType(0);   // Nombre
             return stof(Courant->getValue());
         }
         else if (Courant->getType() == 1) {
-            if (((Courant->getFilsGauche()->getType()==2) || (Courant->getFilsDroit()->getType()==2)) && (Courant->getValue().compare("+") == 0))) {
+            if ((((Courant->getFilsGauche()->getType()==2) || (Courant->getFilsDroit()->getType()==2)) && (Courant->getValue().compare("+") == 0))) {
                 result = gauche + droit;
             } else if (((Courant->getFilsGauche()->getType()==2) || (Courant->getFilsDroit()->getType()==2)) && (Courant->getValue().compare("-") == 0)) {
                 result = gauche - droit;
