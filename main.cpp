@@ -195,6 +195,11 @@ Noeud * createTree () {
                     cout << "c'est un chiffre : " << expression;
                     cout << endl;
                 }
+                else if(isalpha(expression[i])){
+                    float nb = expression.erase(i,1);
+                    char var = expression[i];
+                    cout << "Le multiplicateur est " << nb << " pour la variable " << var;
+                }
 
                 i++;
 
