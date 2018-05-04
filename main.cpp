@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Noeud.h"
+#include "Terme.h"
 #include <fstream>
 
 #include<bits/stdc++.h>
