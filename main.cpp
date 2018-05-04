@@ -6,16 +6,52 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+/*
+ostringstream ParcoursInfixe (Noeud * Courant) {
+    ostringstream gauche;
+    float gaucheF;
+    ostringstream droit;
+    float droitF;
+    ostringstream result;
+    if (Courant->getType() == 0) {
+        result << Courant->getValue();
+        return result;
+    } else {
+        gauche = ParcoursInfixe(Courant->getFilsGauche());
+        droit = ParcoursInfixe(Courant->getFilsDroit());
+        if (Courant->getValue().compare("+") == 0) {
 
-float ParcoursInfixe (Noeud * Courant) {
+            result << stof(gauche.str()) + stof(droit.str());
+        } else if (Courant->getValue().compare("-") == 0) {
+            result << stof(gauche.str()) - stof(droit.str());
+        } else if (Courant->getValue().compare("*") == 0) {
+            if ()
+            result = gauche * droit;
+
+        } else if (Courant->getValue().compare("/") == 0) {
+
+            result << stof(gauche.str()) * stof(droit.str());
+        }
+        return result;
+    }
+}
+*/
+
+float ParcoursInfixe2 (Noeud * Courant) {
     float gauche;
     float droit;
     float result;
     if (Courant->getType() == 0) {
         return stof(Courant->getValue());
-    } else {
-        gauche = ParcoursInfixe(Courant->getFilsGauche());
-        droit = ParcoursInfixe(Courant->getFilsDroit());
+    }
+    else if(Courant->getType() == 2)
+    {
+        return stof(Courant->getValue());
+
+    }
+    else {
+        gauche = ParcoursInfixe2(Courant->getFilsGauche());
+        droit = ParcoursInfixe2(Courant->getFilsDroit());
         if (Courant->getValue().compare("+") == 0) {
             result = gauche + droit;
         } else if (Courant->getValue().compare("-") == 0) {
@@ -30,6 +66,7 @@ float ParcoursInfixe (Noeud * Courant) {
         return result;
     }
 }
+
 
 
 Noeud * createTree () {
@@ -142,6 +179,13 @@ Noeud * createTree () {
         } else if (isalpha(expression[0]) && (expression[1]=='\0')) {
             cout << "c'est une lettre : " << expression[0];
             cout << endl;
+
+            // Ajout dans l'arbre
+            Pere = new Noeud();
+            Pere->setValue(expression);
+            Pere->setType(2);
+            st.push(Pere);
+
         }else if (isdigit(expression[0])) {
             i = 0;
             previous = 1;
