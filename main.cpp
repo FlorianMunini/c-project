@@ -38,7 +38,7 @@ ostringstream ParcoursInfixe (Noeud * Courant) {
 }
 */
 
-float ParcoursInfixe2 (Noeud * Courant) {
+float ParcoursInfixe (Noeud * Courant) {
     float gauche;
     float droit;
     float result;
@@ -51,8 +51,8 @@ float ParcoursInfixe2 (Noeud * Courant) {
 
     }
     else {
-        gauche = ParcoursInfixe2(Courant->getFilsGauche());
-        droit = ParcoursInfixe2(Courant->getFilsDroit());
+        gauche = ParcoursInfixe(Courant->getFilsGauche());
+        droit = ParcoursInfixe(Courant->getFilsDroit());
         if (Courant->getValue().compare("+") == 0) {
             result = gauche + droit;
         } else if (Courant->getValue().compare("-") == 0) {
@@ -187,7 +187,11 @@ Noeud * createTree () {
             Pere->setType(2);
             st.push(Pere);
 
-        }else if (isdigit(expression[0])) {
+        }
+
+
+        else if ((isdigit(expression[0])) && (isalpha(expression[1])== 0)) {
+
             i = 0;
             previous = 1;
             while (expression[i] != '\0') {
@@ -195,11 +199,7 @@ Noeud * createTree () {
                     cout << "c'est un chiffre : " << expression;
                     cout << endl;
                 }
-                else if(isalpha(expression[i])){
-                    float nb = expression.erase(i,1);
-                    char var = expression[i];
-                    cout << "Le multiplicateur est " << nb << " pour la variable " << var;
-                }
+
 
                 i++;
 
@@ -235,8 +235,22 @@ Noeud * createTree () {
 
 
         } else{
-            cout << "error retaper";
-            cout << endl;
+            while (expression[i] != '\0') {
+                if(isalpha(expression[i])){
+                    char var = expression[i];
+                    float nb = stof(expression.erase(i,1));
+
+                    cout << "Le multiplicateur est " << nb << " pour la variable " << var << endl;
+                    i++;
+
+                    // Ajout dans l'arbre
+                    Pere = new Noeud();
+                    Pere->setValue(expression);
+                    Pere->setType(2);
+                    st.push(Pere);
+                }
+
+            }
         }
 
 
