@@ -12,6 +12,8 @@
 
 class Terme {
 public:
+    public: std::string value;
+    public: int type;
 
     const std::string &getValue() const;
 
@@ -20,12 +22,5 @@ public:
     int getType() const;
 
     void setType(int type);
-
-protected: std::string value;
-protected: int type;
-
-
-
-
 
 };

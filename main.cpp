@@ -100,7 +100,16 @@ Noeud * createTree () {
     while(expression.compare("=")!=0){
 
         cin >> expression;
+        if (myfile.is_open())
+        {
+            if (expression!="=") {
+                myfile << expression << "\n";
+            }
 
+
+
+        }
+        else cout << "Unable to open file";
         if (((expression[0] == '*') || (expression[0] == '+') || (expression[0] == '-') || (expression[0] == '/')) && (expression[1]=='\0')) {
             cout << "c'est un operateur : " << expression[0];
             cout << endl;
@@ -127,14 +136,7 @@ Noeud * createTree () {
                 Pere->setFilsDroit(FilsDroit);
                 Pere->setFilsGauche(FilsGauche);
 
-                if (myfile.is_open())
-                {
-                    myfile << "Fils Droit : " << FilsDroit->getValue() << "\n";
-                    myfile << "Fils Gauche : " << FilsGauche->getValue() << "\n";
 
-
-                }
-                else cout << "Unable to open file";
 
                 // Add this subexpression to stack
                 st.push(Pere);
@@ -173,16 +175,6 @@ Noeud * createTree () {
                 Pere->setFilsDroit(FilsDroit);
                 Pere->setFilsGauche(FilsGauche);
 
-                if (myfile.is_open())
-                {
-                    myfile << "Pere : " << Pere->getValue() << "\n";
-                    myfile << "Fils Gauche : " << FilsGauche->getValue() << "\n";
-                    myfile << "Fils Droit : " << FilsDroit->getValue() << "\n";
-
-
-
-                }
-                else cout << "Unable to open file";
 
                 // Add this subexpression to stack
                 st.push(Pere);
@@ -249,19 +241,21 @@ Noeud * createTree () {
 
 
         } else{
+            // Ajout dans l'arbre
+            Pere = new Noeud();
+            Pere->setValue(expression);
+            Pere->setType(2);
+            st.push(Pere);
             while (expression[i] != '\0') {
                 if(isalpha(expression[i])){
+
                     char var = expression[i];
                     float nb = stof(expression.erase(i,1));
 
                     cout << "Le multiplicateur est " << nb << " pour la variable " << var << endl;
                     i++;
 
-                    // Ajout dans l'arbre
-                    Pere = new Noeud();
-                    Pere->setValue(expression);
-                    Pere->setType(2);
-                    st.push(Pere);
+
                 }
 
             }
@@ -294,6 +288,22 @@ Noeud * createTree () {
 }
 
 
+void readFile (string file) {
+    string expressionLU;
+    string STRING;
+    ifstream infile;
+    infile.open (file);
+    while(!infile.eof())
+    {
+        getline(infile,STRING);
+
+        expressionLU.append(STRING+" ");
+    }
+    infile.close();
+    cout << "L'expression lu depuis le fichier est: " << expressionLU << endl;
+}
+
+
 int main() {
     float result;
     Terme *T;
@@ -305,9 +315,7 @@ int main() {
     T = ParcoursInfixe(n);
     cout << T->getValue();
     cout << endl;
-
-
-
+    readFile("../logArbre.txt");
 
     return 0;
 }
