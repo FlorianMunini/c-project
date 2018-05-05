@@ -12,6 +12,7 @@
 
 class Terme {
 public:
+
     const std::string &getValue() const;
 
     void setValue(const std::string &value);

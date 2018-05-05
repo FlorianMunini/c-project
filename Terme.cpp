@@ -4,6 +4,7 @@
 
 #include "Terme.h"
 
+
 const std::string &Terme::getValue() const {
     return value;
 }

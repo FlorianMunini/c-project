@@ -7,99 +7,80 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-/*
-ostringstream ParcoursInfixe (Noeud * Courant) {
-    ostringstream gauche;
-    float gaucheF;
-    ostringstream droit;
-    float droitF;
-    ostringstream result;
+
+Terme *ParcoursInfixe(Noeud* Courant)
+{
+    Terme *T;
+   Terme* gauche;
+    Terme* droit;
     if (Courant->getType() == 0) {
-        result << Courant->getValue();
-        return result;
-    } else {
+        T = new Terme();
+        T->setValue(Courant->getValue());
+        T->setType(0);   // Nombre
+     return T;
+    }
+    else if (Courant->getType() == 1) {
         gauche = ParcoursInfixe(Courant->getFilsGauche());
         droit = ParcoursInfixe(Courant->getFilsDroit());
-        if (Courant->getValue().compare("+") == 0) {
+        if (((gauche->getType()==2)||(droit->getType()==2))&&(Courant->getValue().compare("+") == 0)) {
+            T = new Terme();
+            T->setValue(gauche->getValue()+"+"+droit->getValue());
+            T->setType(2);
+            return T;
+        } else if (((gauche->getType()==2)||(droit->getType()==2))&&(Courant->getValue().compare("-") == 0)) {
+            T = new Terme();
+            T->setValue(gauche->getValue()+"-"+droit->getValue());
+            T->setType(2);
+            return T;
+        } else if (((gauche->getType()==2)||(droit->getType()==2))&&(Courant->getValue().compare("*") == 0)) {
+            T = new Terme();
+            T->setValue(gauche->getValue()+"*"+droit->getValue());
+            T->setType(2);
+            return T;
 
-            result << stof(gauche.str()) + stof(droit.str());
-        } else if (Courant->getValue().compare("-") == 0) {
-            result << stof(gauche.str()) - stof(droit.str());
-        } else if (Courant->getValue().compare("*") == 0) {
-            if ()
-            result = gauche * droit;
+        } else if (((gauche->getType()==2)||(droit->getType()==2))&&(Courant->getValue().compare("/") == 0)) {
 
-        } else if (Courant->getValue().compare("/") == 0) {
-
-            result << stof(gauche.str()) * stof(droit.str());
+            T = new Terme();
+            T->setValue(gauche->getValue()+"/"+droit->getValue());
+            T->setType(1);
+            return T;
         }
-        return result;
+        else if (((gauche->getType()!=2)&&(droit->getType()!=2))&&(Courant->getValue().compare("/") == 0)) {
+
+            T = new Terme();
+            T->setValue(to_string(stof(gauche->getValue())/stof(droit->getValue())));
+            T->setType(1);
+            return T;
+        }
+        else if (((gauche->getType()!=2)&&(droit->getType()!=2))&&(Courant->getValue().compare("+") == 0)) {
+
+            T = new Terme();
+            T->setValue(to_string(stof(gauche->getValue())+stof(droit->getValue())));
+            T->setType(1);
+            return T;
+        }
+        else if (((gauche->getType()!=2)&&(droit->getType()!=2))&&(Courant->getValue().compare("-") == 0)) {
+
+            T = new Terme();
+            T->setValue(to_string(stof(gauche->getValue())-stof(droit->getValue())));
+            T->setType(1);
+            return T;
+        }
+        else if (((gauche->getType()!=2)&&(droit->getType()!=2))&&(Courant->getValue().compare("*") == 0)) {
+
+            T = new Terme();
+            T->setValue(to_string(stof(gauche->getValue())*stof(droit->getValue())));
+            T->setType(1);
+            return T;
+        }
+    }else if (Courant->getType() == 2) {
+        T = new Terme();
+        T->setValue(Courant->getValue());
+        T->setType(2);
+        return (T);
     }
 }
-*/
 
-
-
-
-/*
- if (Courant->getType() == 0) {
-            T = new Terme();
-            T->setValue(Courant->getValue());
-            T->setType(0);   // Nombre
-            return stof(Courant->getValue());
-        }
-        else if (Courant->getType() == 1) {
-            if ((((Courant->getFilsGauche()->getType()==2) || (Courant->getFilsDroit()->getType()==2)) && (Courant->getValue().compare("+") == 0))) {
-                result = gauche + droit;
-            } else if (((Courant->getFilsGauche()->getType()==2) || (Courant->getFilsDroit()->getType()==2)) && (Courant->getValue().compare("-") == 0)) {
-                result = gauche - droit;
-            } else if (((Courant->getFilsGauche()->getType()==2) || (Courant->getFilsDroit()->getType()==2)) && (Courant->getValue().compare("*") == 0)) {
-                result = gauche * droit;
-
-            } else if (((Courant->getFilsGauche()->getType()==2) || (Courant->getFilsDroit()->getType()==2)) && (Courant->getValue().compare("/") == 0)) {
-
-                result = gauche / droit;
-            }
-        }else if (Courant->getType() == 2) {
-            T = new Terme();
-            T->setValue(Courant->getValue());
-            T->setType(2);   // Expression complexe
-            return stof(Courant->getValue());
-        }
-
-        LAAAAAAAAAAAAAAAAAA MAAAAAAAAAAAXIIIIIIIIIIIIIIME AU DESSUUUUS
- */
-float ParcoursInfixe (Noeud * Courant) {
-    float gauche;
-    float droit;
-    float result;
-    if (Courant->getType() == 0) {
-        return stof(Courant->getValue());
-    }
-    else if(Courant->getType() == 2)
-    {
-        return stof(Courant->getValue());
-
-    }
-    else {
-        gauche = ParcoursInfixe(Courant->getFilsGauche());
-        droit = ParcoursInfixe(Courant->getFilsDroit());
-        if (Courant->getValue().compare("+") == 0) {
-            result = gauche + droit;
-        } else if (Courant->getValue().compare("-") == 0) {
-            result = gauche - droit;
-        } else if (Courant->getValue().compare("*") == 0) {
-            result = gauche * droit;
-
-        } else if (Courant->getValue().compare("/") == 0) {
-
-            result = gauche / droit;
-        }
-
-        return result;
-    }
-
-}
 
 
 
@@ -116,7 +97,7 @@ Noeud * createTree () {
     ofstream myfile ("../logArbre.txt");
     int previous = -88;
 
-    while(expression.compare("lol")!=0){
+    while(expression.compare("=")!=0){
 
         cin >> expression;
 
@@ -315,13 +296,17 @@ Noeud * createTree () {
 
 int main() {
     float result;
+    Terme *T;
     cout << "Entrez votre expression en écriture polonaise inversé" << endl;
 
     string expression;
     expression = "5+4*2*-";
     Noeud* n = createTree();
-    result = ParcoursInfixe(n);
-    printf("le resultat est: %f",result);
+    T = ParcoursInfixe(n);
+    cout << T->getValue();
+    cout << endl;
+
+
 
 
     return 0;
